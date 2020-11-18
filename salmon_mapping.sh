@@ -11,9 +11,10 @@ cd /ifb/data/mydatalocal/data/salmon_count
 
 SRR=`ls /ifb/data/mydatalocal/data/sra_data_cleant`
 transcriptome_index="/ifb/data/mydatalocal/data/alignement/mouse_index"
+
 #Quantification
 for srr in $SRR
 do
 echo $srr
-salmon quant -i $transcriptome_index -l SR -r $srr --validateMappings -o {$srr}_quant --gcBias
+salmon quant -i $transcriptome_index -l SR -r /ifb/data/mydatalocal/data/sra_data_cleant/$srr --validateMappings -o $srr"_quant" --gcBias
 done
