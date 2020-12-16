@@ -1,0 +1,77 @@
+---
+title: "Données nommées"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r tximport}
+#if (!requireNamespace("BiocManager", quietly = TRUE))
+#   install.packages("BiocManager")
+#BiocManager::install("biomaRt")
+
+#Loading the librairies of interest
+library("tximport")
+library("biomaRt")
+
+#Working in the right directory
+setwd("/ifb/data/mydatalocal/Single_cell_SZ")
+
+#Taking the path of the directory with salmon data (i.e. "alignments")
+dir="/ifb/data/mydatalocal/data/salmon_count"
+
+#Create a list of files in the directory with salmon data (i.e. "alignments")
+files=list.files(dir)
+
+
+#Take the names of the cells from the directory with salmon data (i.e. the names of cells in "alignments")
+cells <- gsub(".fastq.gz_quant","",files)
+
+#Create a list with the paths toward the quant.sf files in the directory with salmon data. These paths' names are the names of cells.
+files=paste0(dir,"/",files,"/","quant.sf")
+names(files)=cells
+files[1:10] #Display the 10 first paths
+
+#Annotating the transcripts with the names of genes that we want
+ensembl <- useEnsembl(biomart = "genes", dataset = "mmusculus_gene_ensembl") #select the genes of mus musculus in Ensembl
+attributeNames <- c('ensembl_gene_id', 'external_gene_name','ensembl_transcript_id') #create the vector that will contain the 
+annot <- getBM(attributes=attributeNames, 
+               mart = ensembl)            #extract and make the correspondence between the external gene name and the transcript id
+tx2gene <- data.frame(txname=annot$"ensembl_transcript_id",geneid=annot$"external_gene_name")  #create a frame with the corresponding name of the gene for every transcript. It will be the argument for tximport.
+head(tx2gene) 
+
+#Import and summarize the transcript-level abundance from the salmon data (splitted to improve the computer capacity)
+txi1 <- tximport(files[1:500],type="salmon",tx2gene=tx2gene,ignoreTxVersion=T)
+txi2 <- tximport(files[501:1000],type="salmon",tx2gene=tx2gene,ignoreTxVersion=T)
+txi3 <- tximport(files[1001:1500],type="salmon",tx2gene=tx2gene,ignoreTxVersion=T)
+txi4 <- tximport(files[1501:2000],type="salmon",tx2gene=tx2gene,ignoreTxVersion=T)
+txi5 <- tximport(files[2001:2553],type="salmon",tx2gene=tx2gene,ignoreTxVersion=T)
+
+#Pull the splitted results in one single variable, and hide useless data
+txi <- txi1
+txi$"abundance" <- cbind(txi1$"abundance",txi2$"abundance",txi3$"abundance",txi4$"abundance",txi5$"abundance")
+txi$"counts" <- cbind(txi1$"counts",txi2$"counts",txi3$"counts",txi4$"counts",txi5$"counts")
+txi$"length" <- cbind(txi1$"length",txi2$"length",txi3$"length",txi4$"length",txi5$"length")
+txi$"countsFromAbundance" <- cbind(txi1$"countsFromAbundance",txi2$"countsFromAbundance",txi3$"countsFromAbundance",txi4$"countsFromAbundance",txi5$"countsFromAbundance")
+
+#Save the content in a .rds file in the current directory
+saveRDS(txi, "txi.rds")
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+#plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
