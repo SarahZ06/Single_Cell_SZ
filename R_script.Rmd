@@ -40,6 +40,7 @@ files=paste0(dir,"/",files,"/","quant.sf")
 names(files)=cells
 files[1:10] #Display the 10 first paths
 
+
 #Annotating the transcripts with the names of genes that we want
 ensembl <- useEnsembl(biomart = "genes", dataset = "mmusculus_gene_ensembl") #select the genes of mus musculus in Ensembl
 attributeNames <- c('ensembl_gene_id', 'external_gene_name','ensembl_transcript_id') #create the vector that will contain the 
