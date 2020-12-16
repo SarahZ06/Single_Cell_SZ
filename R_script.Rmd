@@ -1,8 +1,6 @@
 ---
 title: "Données nommées"
-output:
-  pdf_document: default
-  html_document: default
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -15,7 +13,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r tximport}
+```{r tximport, eval = FALSE, echo = TRUE}
 #if (!requireNamespace("BiocManager", quietly = TRUE))
 #   install.packages("BiocManager")
 #BiocManager::install("biomaRt")
@@ -69,18 +67,18 @@ txi$"countsFromAbundance" <- cbind(txi1$"countsFromAbundance",txi2$"countsFromAb
 saveRDS(txi, "txi.rds")
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
+## Cell QC & selection
 
 
-```{r LoadSeurat}
-#if (!requireNamespace("BiocManager", quietly = TRUE))
-#   install.packages("BiocManager")
-#BiocManager::install("biomaRt")
+```{r LoadSeurat,  eval = TRUE, echo = TRUE}
+
+# load Seurat
+library(Seurat)
+library(ggplot2)
 
 #Working in the right directory
 setwd("/ifb/data/mydatalocal/Single_cell_SZ")
+txi=readRDS("txi.rds")
 
 # Initialize the Seurat object with the raw (non-normalized data).
 incisor <- CreateSeuratObject(counts = txi$counts, project = "incisor", min.cells = 3, min.features = 200)
@@ -94,6 +92,14 @@ VlnPlot(incisor, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol 
 plot1 <- FeatureScatter(incisor, feature1 = "nCount_RNA", feature2 = "percent.mt")
 plot2 <- FeatureScatter(incisor, feature1 = "nCount_RNA", feature2 = "nFeature_RNA")
 plot1 + plot2
+
+```
+
+select cells and variable features
+
+
+```{r selectCells,  eval = TRUE, echo = TRUE}
+
 incisor <- subset(incisor, subset = nFeature_RNA > 200 & nFeature_RNA < 10000 & percent.mt < 15 & nCount_RNA < 1000000)
 
 #Normalizing the data (global-scaling)
@@ -110,6 +116,13 @@ plot1 + plot2
 # Scaling the data
 all.genes <- rownames(incisor)
 incisor <- ScaleData(incisor, features = all.genes)
+
+```
+
+Dimention reduction
+
+```{r dimred,  eval = TRUE, echo = TRUE}
+
 # Reduction de dimension 
 incisor <- RunPCA(incisor, features = VariableFeatures(object = incisor))
 # Examine and visualize PCA results a few different ways
@@ -130,6 +143,13 @@ JackStrawPlot(incisor, dims = 1:15)
 # on voit qu'à partir de X axe la variation n'est pas énorme. 
 ElbowPlot(incisor)
 
+```
+
+## Cell clustering
+
+```{r umap,  eval = TRUE, echo = TRUE}
+
+
 #Cluster the cells
 incisor <- FindNeighbors(incisor, dims = 1:10)
 incisor <- FindClusters(incisor, resolution = 0.5)
@@ -140,7 +160,10 @@ head(Idents(incisor), 5)
 incisor <- RunUMAP(incisor, dims = 1:10)
 # note that you can set `label = TRUE` or use the LabelClusters function to help label
 # individual clusters
-DimPlot(incisor, reduction = "umap")
+d=DimPlot(incisor, reduction = "umap")
+d
+ggsave(file="umap.png",d)
+
 
 ```
 
