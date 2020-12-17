@@ -163,6 +163,31 @@ incisor <- RunUMAP(incisor, dims = 1:10)
 d=DimPlot(incisor, reduction = "umap")
 d
 ggsave(file="umap.png",d)
+# find all markers of cluster 1
+cluster1.markers <- FindMarkers(incisor, ident.1 = 1, min.pct = 0.25)
+head(cluster1.markers, n = 5)
+# find all markers distinguishing cluster 5 from clusters 0 and 3
+cluster5.markers <- FindMarkers(incisor, ident.1 = 5, ident.2 = c(0, 3), min.pct = 0.25)
+head(cluster5.markers, n = 5)
+# find markers for every cluster compared to all remaining cells, report only the positive ones
+incisor.markers <- FindAllMarkers(incisor, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+incisor.markers %>% group_by(cluster) %>% top_n(n = 2, wt = avg_log2FC)
+# Test Rock 
+
+cluster1.markers <- FindMarkers(incisor, ident.1 = 0, log2FC.threshold = 0.25, test.use = "roc", only.pos = TRUE)
+# Vizualisation du plot 
+VlnPlot(incisor, features = c("MS4A1", "CD79A"))
+# you can plot raw counts as well
+VlnPlot(incisor, features = c("NKG7", "PF4"), slot = "counts", log = TRUE)
+# you can plot raw counts as well
+VlnPlot(pbmc, incisor = c("NKG7", "PF4"), slot = "counts", log = TRUE)
+# Re-definition de l'intervalle de travail avec valeur inf quantile0.05
+quant5_incisor <- quantile(incisor$nFeature_RNA, probs = c(0.05), na.rm = FALSE, names = TRUE, type =7) 
+incisor <- subset(incisor, subset = nFeature_RNA > quant5_incisor & nFeature_RNA < 10000 & percent.mt < 15 & nCount_RNA < 1000000)
+VlnPlot(incisor, features = c("nFeature_RNA", "nCount_RNA", "percent.mt"), ncol = 3)
+
+incisor.markers %>% group_by(cluster) %>% top_n(n = 5, wt = avg_log2FC)
+
 
 
 ```
