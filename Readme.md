@@ -6,22 +6,22 @@ TP NGS Single Cell Incisor
 **OBJECTIF:**
 
 
-Le tissu dentaire des rongeurs est caractérisé par la présence d'une paire d'incisive à croissance continue. Bien que cette caractéristique a longtemps été décrite, peu d'études se sont interessée à la population cellulaire responsable de ce phénomene. Cette étude vise à réaliser un atlas qui englobe l'hétérogénité cellulaires présente dans les incisives de souris. Cette charactérisation se base sur les différénces d'expression des gènes au sein des population cellulaire. In fine cette étude contribura à la charactérisation des cellules souches dentaires ce qui permetra une envetuelle application médicale afin de remplacer le dentition humaine. 
+Le tissu dentaire des rongeurs est caractérisé par la présence d'une paire d'incisive à croissance continue. Bien que cette caractéristique a longtemps été décrite, peu d'études se sont interessées à la population cellulaire responsable de ce phénomene. Cette étude vise à réaliser un atlas qui englobe l'hétérogénité cellulaires des incisives de souris. Cette charactérisation se base sur les différénces d'expression des gènes au sein des population cellulaire. In fine cette étude contribura à la charactérisation des cellules souches dentaires ce qui permetra une envetuelle application médicale afin de remplacer le dentition humaine. 
 
 **VUE GENERALE DES MANIPULATIONS:**
-Les cellules contenus dans les incisives de souris sont extraits puis les ARNm sont isolés et séquencer par la méthode de SMART-SEQ2. Suite à cela nous suivons le flowchart ci-dessous. 
+Les cellules contenues dans les incisives de souris sont extraites puis les ARNm sont isolés et séquencés par la méthode de SMART-SEQ2. Suite à cela nous suivons les étapes résumées dans le flowchart ci-dessous. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Work%20flow.png)
 
 
 **ETAPE 1 : récupération des donnés cellulaires**
-Les données cellulaires sont récupérés  à partir de la basse de données   [Run Selector](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA609340&f=organism_s%3An%3Amus%2520musculus%3Bphenotype_sam_ss%3An%3Ahealthy%3Bplatform_sam_s%3An%3Asmart-seq2%3Bsource_name_sam_ss%3An%3Aincisor%3Ac&o=acc_s%3Aa) suite à l'application du filtre : Mus musculus specie, healthy, Smart-Seq, incisor. Ceci permet d'obtenir 2555 cellules. Les données récupérées sont en format .txt file. 
-Suite à cela on réalise un `fastq-dump` afin de convertir les fichiers obtenus en format fastq. Voir [fastq_dump.sh](fastq_dump.sh)
+Les données cellulaires sont récupérées  à partir de la basse de données   [Run Selector](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA609340&f=organism_s%3An%3Amus%2520musculus%3Bphenotype_sam_ss%3An%3Ahealthy%3Bplatform_sam_s%3An%3Asmart-seq2%3Bsource_name_sam_ss%3An%3Aincisor%3Ac&o=acc_s%3Aa) suite à l'application du filtre : Mus musculus specie, healthy, Smart-Seq, incisor. Ceci permet d'obtenir 2555 cellules. Les données récupérées sont en format .txt file. 
+Suite à cela on réalise un `fastq-dump` afin de convertir les fichiers obtenus en format fastq. Voir [fastq_dump.sh v.2.10.0](fastq_dump.sh)
 
 **ETAPE 2 : control qualité**
-Lors du séquençage à haut débit par la méthode SMART-SEQ2, différents défauts de qualité peuvent survenir. De ce fait, il est nécessaire de réaliser un controle qualité grâce à la fonction `fastqc`. Voir [fast_qc.sh](Test_qualite.sh). 
+Lors du séquençage à haut débit par la méthode SMART-SEQ2, différents défauts de qualité peuvent survenir. De ce fait, il est nécessaire de réaliser un controle qualité grâce à la fonction [fast_qc v.0.11.8](Test_qualite.sh). 
 
 **ETAPE 3 : amélioration de la qualité des données**
-Les résultats de fastqc montre une bonne qualité globale de séquences. Cependant, pour l'ameliorer d'avantage on utilise [trimmomatic.sh](trimmomatic.sh)
+Les résultats de fastqc montre une bonne qualité globale de séquences. Cependant, pour l'ameliorer d'avantage on utilise [trimmomatic v.0.39](trimmomatic.sh)
 Suite à cela, l'étape 2 est réalisée de nouveau afin de re-vérifier la qualité de nos reads. L'image ci-dessous montre une amélioration entre l'étape pré et post trimomatic.
 Pour une cellule donnée selectionnée aléatoirement, le nombre de séquence passe de 536542 à 517896 après nettoyage (figure non insérée). On note aussi une amélioration de la qualité des paires de bases. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Avant_Apr%C3%A8s_nettoyage.png)
