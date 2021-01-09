@@ -66,7 +66,7 @@ Nous pouvons voir que la dimension 1 explique le plus la variabilité génétiqu
 Afin de regrouper les populations cellulaires en cluster, la commande UMAP est utilisée, celle-ci correspond à une méthode de réduction de dimension non linéaire Non-linear. Notez que la fonction "reduction de dimension" incluse dans UMAP est, ici non nécessaire étant donné la réduction de dimension réalisée précedement. 
 Cette clusterisation se base sur le méthode des k plus proches voisins. 
 
-**ETAPE 10 : anotation des clusters**
+**ETAPE 10 : annotation des clusters**
 
 Afin de relier chaque cluster à une population cellulaire détérminée, il est essentiel d'identifier les gènes spécifiques à chaque cluster en comparaison aux autres clusters. Pour ce faire, la commande "FindMarkers" est utilisée. Nous decidons d'afficher 5 marqueurs par cluster, ceci reste peu pour correctement définir une population cellulaire correspondant à chaque cluster, dans l'idéal 100 marqueurs doivent être définis. Après avoir défini les marqueurs caractérisant chaque cluster, les produits de gènes sont charactérisés grâce à [Uniprot](Uniprot.org) ce qui nous permet de déduire la population cellulaire qui correspond à chaque cluster. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Clusters%20annot%C3%A9s.png)
