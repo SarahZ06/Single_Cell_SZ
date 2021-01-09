@@ -19,13 +19,10 @@ Les résultats de fastqc montre une bonne qualité globale de séquences. Cepend
 Suite à cela, l'étape 2 est réalisée de nouveau afin de re-vérifier la qualité de nos reads. L'image ci-dessous montre une amélioration entre l'étape pré et post trimomatic.
 
 
-**ETAPE 4 : extraction des données de références**
+**ETAPE 4 : extraction des données de références et mapping des séquences nettoyées**
 Suite à cela, on réalise un alignement entre les séquences obtenues et une séquence de référence de mus_musculus prise sur [https://www.ensembl.org/] 
-L'extraction de ces données de référence se fait en créant un index. Ce dernier correspond à un codage des séquences de référence en un code compacté (pour notre part un code à 31 lettres). La création de cet index se fait via la commande suivante : 
-```
-salmon index -t Mus_musculus.GRCm38.cdna.all.fa -i mouse_index -k 31
-```
-**ETAPE 5 : Mapping des séquences nettoyée**
+L'extraction de ces données de référence se fait en créant un index. Ce dernier correspond à un codage des séquences de référence en un code compacté (pour notre part un code à 31 lettres). La création de cet index se fait via la commande suivante [Salmon v0.14.1](alignement.sh)
+
 Suite à cela, on réalise un mapping de nos séquences sur l'indexe obtenu. Voir [mapping.sh](salmon_mapping.sh)
 
 
