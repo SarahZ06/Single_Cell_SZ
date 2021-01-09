@@ -9,7 +9,7 @@ TP NGS Single Cell Incisor
 Le tissu dentaire des rongeurs est caractérisé par la présence d'une paire d'incisive à croissance continue. Bien que cette caractéristique a longtemps été décrite, peu d'études se sont interessées à la population cellulaire responsable de ce phénomene. Cette étude vise à réaliser un atlas qui englobe l'hétérogénité cellulaires des incisives de souris. Cette charactérisation se base sur les différénces d'expression des gènes au sein des population cellulaire. In fine cette étude contribura à la charactérisation des cellules souches dentaires ce qui permetra une envetuelle application médicale afin de remplacer le dentition humaine. 
 
 **VUE GENERALE DES MANIPULATIONS:**
-Les cellules contenues dans les incisives de souris sont extraites puis les ARNm sont isolés et séquencés par la méthode de SMART-SEQ2. Suite à cela nous suivons les étapes résumées dans le flowchart ci-dessous. 
+Les cellules contenues dans les incisives de souris sont extraites puis les ARNm sont isolés et séquencés par la méthode de SMART-SEQ2 (cf. [reference](https://www.nature.com/articles/s41467-020-18512-7#citeas)). Suite à cela nous suivons les étapes résumées dans le flowchart ci-dessous. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Work%20flow.png)
 
 
@@ -55,10 +55,14 @@ Nous pouvons voir que la dimension 1 explique le plus la variabilité génétiqu
 
 Afin de regrouper les populations cellulaires en cluster, la commande UMAP est utilisée, celle-ci correspond à une méthode de réduction de dimension non linéaire Non-linear. Notez que la fonction "reduction de dimension" incluse dans UMAP est, ici non nécessaire étant donné la réduction de dimension réalisée précedement. 
 Cette clusterisation se base sur le méthode des k plus proches voisins. 
+
 **ETAPE 10 : Anotation des clusters**
-Afin de relier chaque cluster à une population cellulaire détérminée, il est essentiel d'identifier les gènes spécifiques à chaque cluster en comparaison aux autres clusters. Pour ce faire, la commande "FindMarkers" est utilisée. Nous decidons d'afficher 5 marqueurs par cluster, ceci reste peu pour correctement définir une population cellulaire correspondant à chaque cluster, dans l'idéal 100 marqueurs doivent être définis. 
+Afin de relier chaque cluster à une population cellulaire détérminée, il est essentiel d'identifier les gènes spécifiques à chaque cluster en comparaison aux autres clusters. Pour ce faire, la commande "FindMarkers" est utilisée. Nous decidons d'afficher 5 marqueurs par cluster, ceci reste peu pour correctement définir une population cellulaire correspondant à chaque cluster, dans l'idéal 100 marqueurs doivent être définis. Après avoir défini les marqueurs caractérisant chaque cluster, les produits de gènes sont charactérisés grâce à [Uniprot](Uniprot.org) ce qui nous permet de déduire la population cellulaire qui correspond à chaque cluster. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Clusters%20annot%C3%A9s.png)
 Pour les clusters 5 et 14, nos analyses suggèrent qu'il s'agit de la même population cellulaire, ce qui semble contradictoire avec leur positionnement sur la carte UMAP. Pour savoir ce qui différencie les deux clusters, il est possible d'appliquer la commande "find all markers" en distinguant spécifiquement le cluster 5 du clusters 14. 
+Le cluster 11 quant à lui n'a pas pu être identifié. Dans de telle situation, il est nécessaire d'effectuer des expérimentations supplémentaires tel que l'immunomarquage ou une fusion transcriptionnelle/traductionnelle afin de mieux identifier dans quelle population cellulaire se trouve les transcrits d'intérêt. Il est aussi possible d'avoir recours à l'ontologie génomique. 
+Suite à cela la réalisation de la vélocité de l’ARN a permis de déterminer les gènes impliqués dans la régénération cellulaire (Sfrp2, Lef1, Fzd1, Sfrp1, Rspo1, Trabd2b, Gli1, and Wif1). Ces gènes sont le plus exprimés au niveau de la pulpe des incisives ce qui suggére que cette dernière est la niche des cellules souches dentaires. 
+
 
 
 
