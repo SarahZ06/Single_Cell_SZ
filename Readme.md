@@ -10,7 +10,7 @@ Le tissu dentaire des rongeurs est caractérisé par la présence d'une paire d'
 
 **VUE GENERALE DES ETAPES:**
 
-Les cellules contenues dans les incisives de souris sont extraites puis les ARNm sont isolés et séquencés par la méthode SMART-SEQ2 (cf. [reference](https://www.nature.com/articles/s41467-020-18512-7#citeas)). Suite à cela nous suivons les étapes résumées dans le flowchart ci-dessous. 
+Les cellules contenues dans les incisives de souris sont extraites puis les ARNm sont isolés et séquencés par la méthode SMART-SEQ2 (cf. [reference](https://www.nature.com/articles/s41467-020-18512-7#citeas)). Suite à cela nous suivons les étapes résumées dans le flowchart ci-dessous(fait par Melie Talaron). 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Work%20flow.png)
 
 
