@@ -31,7 +31,12 @@ Afin d'importer les transcrits, nous utilisons la commande tximport en veillant 
 **ETAPE 6 : Séléction des cellules de bonne qualité**
 La "qualité" d'une cellule peut être appreciée par le nombre de gène qu'elle exprime, la quantité de transcrit ainsi que le pourcentage d'ADN mitochondrial. Afin de sélectionner uniquement les cellules en bon état, nous nous basons sur les résultats de plot obtenus sur nos données bruts nettoyés et nous decidons d'appliquer le filtre suivisant :
 Elimination des  cellules exprimant moins de 5% du quartile inférieur. dont le nombre d'ARNs exprimés dépasse 1.000.000. Dont le pourcentage d'ADN mitochondrial dépasse 15%. Suite à cela le plot de droite est obtenu. 
-**ETAPE 7 : Séléction des cellules de bonne qualité**
+**ETAPE 7 : Identification des gènes variables **
+ Tout d'abord une normalisation des transcrits obtenus par rapport aux trancrits totaux est réalisée grâce à la commande "normlization" (résultat obtenu en échelle logarithmique). Afin d'identifier les 10 gènes les plus exprimés, la commande "identify_variable_features" est utilisée et les résultats peuvent être visualisés en forme de plot grâce à la commande "plot_variable_genes". rajouter  truc de 20000 ?? 
+**ETAPE 8 : réduction de dimension **
+Afin de réaliser une réduction de dimension, un scaling doit être réalisé.  Suite à cela une PCA  (Principal Component Analysis) est réalisée grâce à la commande "dimensional_reduction". Cette méthode permet d'obtenir 15 dimensions différente ce qui nous permet de visualiser quelle dimension expliquent le mieux la variabilité d'expression des génes. 
+
+Nous pouvons voir que la dimension 1 explique le plus la variabilité génétique puis cette variabilité en fonction des axes 
 
 
 
