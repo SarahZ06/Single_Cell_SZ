@@ -6,7 +6,7 @@ Le tissu dentaire des rongeurs est caractérisé par la présence d'une paire d'
 
 **VUE GENERALE DES MANIPULATIONS:**
 #Inserer image non encore faite 
-![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Work%20flow.png)
+![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Work%20flow.png)
 
 
 **ETAPE 1 : récupération des donnés cellulaires**
@@ -20,7 +20,7 @@ Lors du séquençage à haut débit par la méthode SMART-SEQ2, différents déf
 Les résultats de fastqc montre une bonne qualité globale de séquences. Cependant, pour l'ameliorer d'avantage on utilise [trimmomatic.sh](trimmomatic.sh)
 Suite à cela, l'étape 2 est réalisée de nouveau afin de re-vérifier la qualité de nos reads. L'image ci-dessous montre une amélioration entre l'étape pré et post trimomatic.
 Pour une cellule donnée selectionnée aléatoirement, le nombre de séquence passe de 536542 à 517896 après nettoyage (figure non insérée). On note aussi une amélioration de la qualité des paires de bases. 
-![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Avant_Apr%C3%A8s%20nettoyage.png)
+![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Avant_Apr%C3%A8s_nettoyage.png)
 
 
 
@@ -36,6 +36,7 @@ Afin d'importer les transcrits, nous utilisons la commande tximport en veillant 
 **ETAPE 6 : Séléction des cellules de bonne qualité**
 La "qualité" d'une cellule peut être appreciée par le nombre de gène qu'elle exprime, la quantité de transcrit ainsi que le pourcentage d'ADN mitochondrial. Afin de sélectionner uniquement les cellules en bon état, nous nous basons sur les résultats de plot obtenus sur nos données bruts nettoyés et nous decidons d'appliquer le filtre suivisant :
 Elimination des  cellules exprimant moins de 5% du quartile inférieur. dont le nombre d'ARNs exprimés dépasse 1.000.000. Dont le pourcentage d'ADN mitochondrial dépasse 15%. Suite à cela le plot de droite est obtenu. 
+![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/CELLULES%20APRES%20FILTRES.png)
 **ETAPE 7 : Identification des gènes variables **
  Tout d'abord une normalisation des transcrits obtenus par rapport aux trancrits totaux est réalisée grâce à la commande "normlization" (résultat obtenu en échelle logarithmique). Afin d'identifier les 10 gènes les plus exprimés, la commande "identify_variable_features" est utilisée et les résultats peuvent être visualisés en forme de plot grâce à la commande "plot_variable_genes". rajouter  truc de 20000 ?? 
 **ETAPE 8 : réduction de dimension **
@@ -48,7 +49,7 @@ Afin de regrouper les populations cellulaires en cluster, la commande UMAP est u
 Cette clusterisation se base sur le méthode des k plus proches voisins. 
 **ETAPE 9 : Anotation des clusters  **
 Afin de relier chaque cluster à une population cellulaire détérminée, il est essentiel d'identifier les gènes spécifique à chaque cluster en comparaison aux autres cluster. Pour ce faire, la commande FindMarkers est utilisée. Nous decidons d'afficher 5 marqueurs par cluster, ceci reste peu pour correctement définir une population cellulaire correspondant à chaque cluster, dans l'idéal 100 marqueurs doivent être définis. 
-![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Clusters%20annot%C3%A9s.png)
+![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Clusters%20annot%C3%A9s.png)
 Pour les clusters 5 et 14, nos analyses suggère qu'il s'agit de la même population cellulaire, ce qui semble contradictoire avec leur positionnement différent sur la carte UMAP. Pour savoir ce qui différencie les deux clusters, il est possible d'appliquer la commande ..... 
 
 
