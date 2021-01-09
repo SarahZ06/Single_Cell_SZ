@@ -41,7 +41,7 @@ Elimination des  cellules exprimant moins de 5% du quartile inférieur. dont le 
  Tout d'abord une normalisation des transcrits obtenus par rapport aux trancrits totaux est réalisée grâce à la commande "normlization" (résultat obtenu en échelle logarithmique). Afin d'identifier les 10 gènes les plus exprimés, la commande "identify_variable_features" est utilisée et les résultats peuvent être visualisés en forme de plot grâce à la commande "plot_variable_genes". rajouter  truc de 20000 ?? 
 **ETAPE 8 : réduction de dimension **
 Afin de réaliser une réduction de dimension, un scaling doit être réalisé.  Suite à cela une PCA  (Principal Component Analysis) est réalisée grâce à la commande "dimensional_reduction". Cette méthode permet d'obtenir 15 dimensions différente ce qui nous permet de visualiser quelle dimension expliquent le mieux la variabilité d'expression des génes. 
-
+![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Axe%20les%20plus%20differents.png)
 Nous pouvons voir que la dimension 1 explique le plus la variabilité génétique puis cette variabilité en fonction des axes et s'affaisse à l'axe 20. 
 **ETAPE 8 : Clusterisation des populations cellulaires  **
 
