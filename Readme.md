@@ -36,8 +36,14 @@ Elimination des  cellules exprimant moins de 5% du quartile inférieur. dont le 
 **ETAPE 8 : réduction de dimension **
 Afin de réaliser une réduction de dimension, un scaling doit être réalisé.  Suite à cela une PCA  (Principal Component Analysis) est réalisée grâce à la commande "dimensional_reduction". Cette méthode permet d'obtenir 15 dimensions différente ce qui nous permet de visualiser quelle dimension expliquent le mieux la variabilité d'expression des génes. 
 
-Nous pouvons voir que la dimension 1 explique le plus la variabilité génétique puis cette variabilité en fonction des axes 
+Nous pouvons voir que la dimension 1 explique le plus la variabilité génétique puis cette variabilité en fonction des axes et s'affaisse à l'axe 20. 
+**ETAPE 8 : Clusterisation des populations cellulaires  **
 
+Afin de regrouper les populations cellulaires en cluster, la commande UMAP est utilisée, celle-ci correspond à une méthode de réduction de dimension non linéaire Non-linear. Notez que la fonction "reduction de dimension" incluse dans UMAP est, ici non nécessaire étant donné la réduction de dimension réalisée précedement. 
+Cette clusterisation se base sur le méthode des k plus proches voisins. 
+**ETAPE 9 : Anotation des clusters  **
+Afin de relier chaque cluster à une population cellulaire détérminée, il est essentiel d'identifier les gènes spécifique à chaque cluster en comparaison aux autres cluster. Pour ce faire, la commande FindMarkers est utilisée. Nous decidons d'afficher 5 marqueurs par cluster, ceci reste peu pour correctement définir une population cellulaire correspondant à chaque cluster, dans l'idéal 100 marqueurs doivent être définis. 
+Pour les clusters 5 et 14, nos analyses suggère qu'il s'agit de la même population cellulaire, ce qui semble contradictoire avec leur positionnement différent sur la carte UMAP. Pour savoir ce qui différencie les deux clusters, il est possible d'appliquer la commande ..... 
 
 
 
