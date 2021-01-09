@@ -19,7 +19,7 @@ Lors du séquençage à haut débit par la méthode SMART-SEQ2, différents déf
 **ETAPE 3 : amélioration de la qualité des données**
 Les résultats de fastqc montre une bonne qualité globale de séquences. Cependant, pour l'ameliorer d'avantage on utilise [trimmomatic.sh](trimmomatic.sh)
 Suite à cela, l'étape 2 est réalisée de nouveau afin de re-vérifier la qualité de nos reads. L'image ci-dessous montre une amélioration entre l'étape pré et post trimomatic.
-Pour une cellule selectionnée aléatoirement, on peut voir que le nombre de séquence passe de 536542 à 517896 après nettoyage. On note aussi une amélioration de la qualité des paires de bases. 
+Pour une cellule donnée selectionnée aléatoirement, le nombre de séquence passe de 536542 à 517896 après nettoyage (figure non insérée). On note aussi une amélioration de la qualité des paires de bases. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Avant_Apr%C3%A8s%20nettoyage.png)
 
 
