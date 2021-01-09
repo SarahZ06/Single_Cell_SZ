@@ -19,7 +19,7 @@ Les cellules contenues dans les incisives de souris sont extraites puis les ARNm
 Les données cellulaires sont récupérées  à partir de la basse de données   [Run Selector](https://www.ncbi.nlm.nih.gov/Traces/study/?acc=PRJNA609340&f=organism_s%3An%3Amus%2520musculus%3Bphenotype_sam_ss%3An%3Ahealthy%3Bplatform_sam_s%3An%3Asmart-seq2%3Bsource_name_sam_ss%3An%3Aincisor%3Ac&o=acc_s%3Aa) suite à l'application du filtre : Mus musculus specie, healthy, Smart-Seq, incisor. Ceci permet d'obtenir 2555 cellules. Les données récupérées sont en format .txt file. 
 Suite à cela on réalise un `fastq-dump` afin de convertir les fichiers obtenus en format fastq. Voir [fastq_dump.sh v.2.10.0](fastq_dump.sh)
 
-**ETAPE 2 : control qualité**
+**ETAPE 2 : contrôle qualité**
 
 Lors du séquençage à haut débit par la méthode SMART-SEQ2, différents défauts de qualité peuvent survenir. De ce fait, il est nécessaire de réaliser un controle qualité grâce à la fonction [fast_qc v.0.11.8](Test_qualite.sh). 
 
