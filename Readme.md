@@ -45,17 +45,17 @@ Elimination des  cellules exprimant moins de 5% du quartile inférieur. dont le 
 **ETAPE 7 : Identification des gènes variables **
 Nous réalisons une étape préalable de normalisation de  transcrits cellulaires par rapport aux trancrits totaux en utilisant la commande "normlization" (résultat obtenu en échelle logarithmique). Afin d'identifier les 10 gènes les plus exprimés, la commande "identify_variable_features" est utilisée et les résultats peuvent être visualisés en forme de plot grâce à la commande "plot_variable_genes". 
 
-**ETAPE 8 : réduction de dimension **
+**ETAPE 8 : réduction de dimension**
 
 Afin de réaliser une réduction de dimension, une étape de transformation linéaire de "scaling" doit étre préalablement effectuée en utilisant la commande "ScaleData".  Suite à cela une PCA  (Principal Component Analysis) est réalisée grâce à la commande "dimensional_reduction". Cette méthode permet d'obtenir 15 dimensions différente ce qui nous permet de visualiser quelle dimension expliquent le mieux la variabilité d'expression des génes. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Axe%20les%20plus%20differents.png)
 Nous pouvons voir que la dimension 1 explique le plus la variabilité génétique puis cette variabilité en fonction des axes et s'affaisse à l'axe 20.
 
-**ETAPE 9 : Clusterisation des populations cellulaires  **
+**ETAPE 9 : Clusterisation des populations cellulaires**
 
 Afin de regrouper les populations cellulaires en cluster, la commande UMAP est utilisée, celle-ci correspond à une méthode de réduction de dimension non linéaire Non-linear. Notez que la fonction "reduction de dimension" incluse dans UMAP est, ici non nécessaire étant donné la réduction de dimension réalisée précedement. 
 Cette clusterisation se base sur le méthode des k plus proches voisins. 
-**ETAPE 10 : Anotation des clusters  **
+**ETAPE 10 : Anotation des clusters**
 Afin de relier chaque cluster à une population cellulaire détérminée, il est essentiel d'identifier les gènes spécifiques à chaque cluster en comparaison aux autres clusters. Pour ce faire, la commande "FindMarkers" est utilisée. Nous decidons d'afficher 5 marqueurs par cluster, ceci reste peu pour correctement définir une population cellulaire correspondant à chaque cluster, dans l'idéal 100 marqueurs doivent être définis. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Clusters%20annot%C3%A9s.png)
 Pour les clusters 5 et 14, nos analyses suggèrent qu'il s'agit de la même population cellulaire, ce qui semble contradictoire avec leur positionnement sur la carte UMAP. Pour savoir ce qui différencie les deux clusters, il est possible d'appliquer la commande "find all markers" en distinguant spécifiquement le cluster 5 du clusters 14. 
