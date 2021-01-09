@@ -22,8 +22,8 @@ Lors du séquençage à haut débit par la méthode SMART-SEQ2, différents déf
 
 **ETAPE 3 : amélioration de la qualité des données**
 Les résultats de fastqc montre une bonne qualité globale de séquences. Cependant, pour l'ameliorer d'avantage on utilise [trimmomatic v.0.39](trimmomatic.sh)
-Suite à cela, l'étape 2 est réalisée de nouveau afin de re-vérifier la qualité de nos reads. L'image ci-dessous montre une amélioration entre l'étape pré et post trimomatic.
-Pour une cellule donnée selectionnée aléatoirement, le nombre de séquence passe de 536542 à 517896 après nettoyage (figure non insérée). On note aussi une amélioration de la qualité des paires de bases. 
+Suite à cela, l'étape 2 est réalisée de nouveau afin de re-vérifier la qualité de nos reads. L'image ci-dessous montre une amélioration entre l'étape pré et post trimmomatic.
+Pour une cellule donnée selectionnée aléatoirement, le nombre de séquence passe de 536542 à 517896 après nettoyage (figure non insérée). On note aussi une amélioration de la qualité des paires de bases (voir figure ci-dessous). 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Avant_Apr%C3%A8s_nettoyage.png)
 
 
@@ -31,8 +31,9 @@ Pour une cellule donnée selectionnée aléatoirement, le nombre de séquence pa
 **ETAPE 4 : extraction des données de références et mapping des séquences nettoyées**
 Suite à cela, on réalise un alignement entre les séquences obtenues et une séquence de référence de mus_musculus prise sur [https://www.ensembl.org/] 
 L'extraction de ces données de référence se fait en créant un index. Ce dernier correspond à un codage des séquences de référence en un code compacté (pour notre part un code à 31 lettres). La création de cet index se fait via la commande suivante [Salmon v0.14.1](alignement.sh)
+Le mapping de nos séquences  est ensuite réalisé sur l'indexe obtenu. Voir [mapping.sh](salmon_mapping.sh)
 
-Suite à cela, on réalise un mapping de nos séquences sur l'indexe obtenu. Voir [mapping.sh](salmon_mapping.sh)
+**Les commandes des étapes suivantes sont regroupées dans le [R_Script](R_script.Rmd) **
 
 **ETAPE 5 : Générationde la matrice de comptage**
 Afin d'importer les transcrits, nous utilisons la commande tximport en veillant à modifier la commande {r tximport eval=T echo=T} en {r tximport eval=F echo=T}. 
@@ -42,19 +43,23 @@ La "qualité" d'une cellule peut être appreciée par le nombre de gène qu'elle
 Elimination des  cellules exprimant moins de 5% du quartile inférieur. dont le nombre d'ARNs exprimés dépasse 1.000.000. Dont le pourcentage d'ADN mitochondrial dépasse 15%. Suite à cela le plot de droite est obtenu. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/CELLULES%20APRES%20FILTRES.png)
 **ETAPE 7 : Identification des gènes variables **
- Tout d'abord une normalisation des transcrits obtenus par rapport aux trancrits totaux est réalisée grâce à la commande "normlization" (résultat obtenu en échelle logarithmique). Afin d'identifier les 10 gènes les plus exprimés, la commande "identify_variable_features" est utilisée et les résultats peuvent être visualisés en forme de plot grâce à la commande "plot_variable_genes". rajouter  truc de 20000 ?? 
+Nous réalisons une étape préalable de normalisation de  transcrits cellulaires par rapport aux trancrits totaux en utilisant la commande "normlization" (résultat obtenu en échelle logarithmique). Afin d'identifier les 10 gènes les plus exprimés, la commande "identify_variable_features" est utilisée et les résultats peuvent être visualisés en forme de plot grâce à la commande "plot_variable_genes". 
+
 **ETAPE 8 : réduction de dimension **
-Afin de réaliser une réduction de dimension, un scaling doit être réalisé.  Suite à cela une PCA  (Principal Component Analysis) est réalisée grâce à la commande "dimensional_reduction". Cette méthode permet d'obtenir 15 dimensions différente ce qui nous permet de visualiser quelle dimension expliquent le mieux la variabilité d'expression des génes. 
+
+Afin de réaliser une réduction de dimension, une étape de transformation linéaire de "scaling" doit étre préalablement effectuée en utilisant la commande "ScaleData".  Suite à cela une PCA  (Principal Component Analysis) est réalisée grâce à la commande "dimensional_reduction". Cette méthode permet d'obtenir 15 dimensions différente ce qui nous permet de visualiser quelle dimension expliquent le mieux la variabilité d'expression des génes. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Axe%20les%20plus%20differents.png)
-Nous pouvons voir que la dimension 1 explique le plus la variabilité génétique puis cette variabilité en fonction des axes et s'affaisse à l'axe 20. 
-**ETAPE 8 : Clusterisation des populations cellulaires  **
+Nous pouvons voir que la dimension 1 explique le plus la variabilité génétique puis cette variabilité en fonction des axes et s'affaisse à l'axe 20.
+
+**ETAPE 9 : Clusterisation des populations cellulaires  **
 
 Afin de regrouper les populations cellulaires en cluster, la commande UMAP est utilisée, celle-ci correspond à une méthode de réduction de dimension non linéaire Non-linear. Notez que la fonction "reduction de dimension" incluse dans UMAP est, ici non nécessaire étant donné la réduction de dimension réalisée précedement. 
 Cette clusterisation se base sur le méthode des k plus proches voisins. 
-**ETAPE 9 : Anotation des clusters  **
-Afin de relier chaque cluster à une population cellulaire détérminée, il est essentiel d'identifier les gènes spécifique à chaque cluster en comparaison aux autres cluster. Pour ce faire, la commande FindMarkers est utilisée. Nous decidons d'afficher 5 marqueurs par cluster, ceci reste peu pour correctement définir une population cellulaire correspondant à chaque cluster, dans l'idéal 100 marqueurs doivent être définis. 
+**ETAPE 10 : Anotation des clusters  **
+Afin de relier chaque cluster à une population cellulaire détérminée, il est essentiel d'identifier les gènes spécifiques à chaque cluster en comparaison aux autres clusters. Pour ce faire, la commande "FindMarkers" est utilisée. Nous decidons d'afficher 5 marqueurs par cluster, ceci reste peu pour correctement définir une population cellulaire correspondant à chaque cluster, dans l'idéal 100 marqueurs doivent être définis. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Clusters%20annot%C3%A9s.png)
-Pour les clusters 5 et 14, nos analyses suggère qu'il s'agit de la même population cellulaire, ce qui semble contradictoire avec leur positionnement différent sur la carte UMAP. Pour savoir ce qui différencie les deux clusters, il est possible d'appliquer la commande ..... 
+Pour les clusters 5 et 14, nos analyses suggèrent qu'il s'agit de la même population cellulaire, ce qui semble contradictoire avec leur positionnement sur la carte UMAP. Pour savoir ce qui différencie les deux clusters, il est possible d'appliquer la commande "find all markers" en distinguant spécifiquement le cluster 5 du clusters 14. 
+
 
 
 
