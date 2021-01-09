@@ -49,7 +49,7 @@ Afin d'importer les transcrits, nous utilisons la commande tximport en veillant 
 La "qualité" d'une cellule peut être appreciée par : le nombre de gène qu'elle exprime, la quantité de transcrit ainsi que le pourcentage d'ADN mitochondrial. Afin de sélectionner uniquement les cellules en bon état, nous nous basons sur les résultats de plot obtenus sur nos données brutes nettoyées et nous decidons d'appliquer le filtre suivisant : élimination des  cellules exprimant moins de 5% du quartile inférieur. dont le nombre d'ARNs exprimés dépasse 1.000.000. et dont le pourcentage d'ADN mitochondrial dépasse 15%. Suite à cela le plot ci-dessous est obtenu. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/CELLULES%20APRES%20FILTRES.png)
 
-**ETAPE 7 : identification des gènes variables **
+**ETAPE 7 : identification des gènes variables**
 
 Nous réalisons une étape préalable de normalisation de  transcrits cellulaires par rapport aux trancrits totaux en utilisant la commande `normlization` (résultat obtenu en échelle logarithmique). Afin d'identifier les 10 gènes les plus exprimés, la commande `identify_variable_features` est utilisée et les résultats peuvent être visualisés en forme de plot grâce à la commande `plot_variable_genes`. 
 
