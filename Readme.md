@@ -1,11 +1,15 @@
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)  
 
+TP NGS Single Cell Incisor 
+==========================
+
 **OBJECTIF:**
+
 
 Le tissu dentaire des rongeurs est caractérisé par la présence d'une paire d'incisive à croissance continue. Bien que cette caractéristique a longtemps été décrite, peu d'études se sont interessée à la population cellulaire responsable de ce phénomene. Cette étude vise à réaliser un atlas qui englobe l'hétérogénité cellulaires présente dans les incisives de souris. Cette charactérisation se base sur les différénces d'expression des gènes au sein des population cellulaire. In fine cette étude contribura à la charactérisation des cellules souches dentaires ce qui permetra une envetuelle application médicale afin de remplacer le dentition humaine. 
 
 **VUE GENERALE DES MANIPULATIONS:**
-#Inserer image non encore faite 
+Les cellules contenus dans les incisives de souris sont extraits puis les ARNm sont isolés et séquencer par la méthode de SMART-SEQ2. Suite à cela nous suivons le flowchart ci-dessous. 
 ![](https://github.com/SarahZ06/Single_Cell_SZ/blob/master/Images/Work%20flow.png)
 
 
