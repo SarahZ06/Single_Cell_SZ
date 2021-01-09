@@ -25,4 +25,14 @@ L'extraction de ces données de référence se fait en créant un index. Ce dern
 
 Suite à cela, on réalise un mapping de nos séquences sur l'indexe obtenu. Voir [mapping.sh](salmon_mapping.sh)
 
+**ETAPE 5 : Générationde la matrice de comptage**
+Afin d'importer les transcrits, nous utilisons la commande tximport en veillant à modifier la commande {r tximport eval=T echo=T} en {r tximport eval=F echo=T}. 
+
+**ETAPE 6 : Séléction des cellules de bonne qualité**
+La "qualité" d'une cellule peut être appreciée par le nombre de gène qu'elle exprime, la quantité de transcrit ainsi que le pourcentage d'ADN mitochondrial. Afin de sélectionner uniquement les cellules en bon état, nous nous basons sur les résultats de plot obtenus sur nos données bruts nettoyés et nous decidons d'appliquer le filtre suivisant :
+Elimination des  cellules exprimant moins de 5% du quartile inférieur. dont le nombre d'ARNs exprimés dépasse 1.000.000. Dont le pourcentage d'ADN mitochondrial dépasse 15%. Suite à cela le plot de droite est obtenu. 
+**ETAPE 7 : Séléction des cellules de bonne qualité**
+
+
+
 
